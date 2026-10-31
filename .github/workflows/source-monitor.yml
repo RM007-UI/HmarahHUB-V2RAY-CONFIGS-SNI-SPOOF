@@ -1,0 +1,35 @@
+name: Monitor upstream source availability
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-monitor
+  cancel-in-progress: true
+
+jobs:
+  check-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run metadata-only source checks
+        run: python3 scripts/check_sources.py
+
+      - name: Publish status report
+        run: |
+          if ! git diff --quiet -- sources-status.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add sources-status.json
+            git commit -m "Update upstream source availability"
+            git push
+          else
+            echo "Source status has not changed."
+          fi
