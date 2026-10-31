@@ -16,9 +16,10 @@ A browser-only configuration inspection dashboard. It reads files selected by th
 ## Limitations
 This is a structural inspector, not a connection tester. A detected TLS or SNI field does not prove that a certificate is valid, that SNI matches the certificate, or that a remote service is reachable. The inspector does not rewrite server destinations, generate working proxy subscriptions, or scrape public repositories for third-party endpoints.
 
-## Deploy to GitHub Pages
-1. Open Settings → Pages in the repository.
-2. Under Build and deployment, choose GitHub Actions.
-3. Push to the main branch; the workflow in .github/workflows/pages.yml publishes the static dashboard.
+## One-time GitHub Pages setup
+The repository's GitHub connection can push source files and workflows, but its Actions token cannot create the Pages site. A repository administrator must enable Pages once:
+1. Open **Settings → Pages**: https://github.com/RM007-UI/HmarahHUB-V2RAY-CONFIGS-SNI-SPOOF/settings/pages
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. The next successful run of **Deploy HmarahHUB to GitHub Pages** publishes the site.
 
-The dashboard can also be opened locally from index.html.
+The dashboard can also be opened locally from `index.html`.
