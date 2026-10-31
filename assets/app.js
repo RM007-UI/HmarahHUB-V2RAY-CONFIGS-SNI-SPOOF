@@ -16,15 +16,53 @@ function inspectJson(text,start){const root=json(text);if(!root)return[];const o
 function parse(input){const text=input.trim();if(!text)return[];const jr=inspectJson(text,state.rows.length+1);if(jr.length)return jr;let lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(lines.length===1&&!/^[a-z][a-z0-9+.-]*:\/\//i.test(lines[0])&&!lines[0].startsWith("{")){const d=decodeB64(lines[0]);if(d.includes("://"))lines=d.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}const found=[];for(const line of lines){const r=inspectUri(line,state.rows.length+found.length+1);if(r)found.push(r)}return found}
 function counts(){return{all:state.rows.length,tls:state.rows.filter(x=>x.tls==="tls").length,plain:state.rows.filter(x=>x.tls==="plain").length,unknown:state.rows.filter(x=>x.tls==="unknown").length}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function render(){const c=counts();for(const [id,n]of [["totalCount",c.all],["tlsCount",c.tls],["plainCount",c.plain],["unknownCount",c.unknown],["allTab",c.all],["tlsTab",c.tls],["plainTab",c.plain],["unknownTab",c.unknown]])$(id).textContent=fa(n);$("downloadReport").disabled=!c.all;document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.filter===state.filter));const rows=state.rows.filter(x=>state.filter==="all"||x.tls===state.filter),host=$("resultsList");if(!rows.length){host.innerHTML='<div class="empty"><span>◎</span><strong>موردی در این بخش نیست</strong><p>فایل خودت را وارد کن یا فیلتر دیگری را انتخاب کن.</p></div>';return}host.innerHTML=rows.map((r,i)=>{const cls=r.tls==="tls"?"tls":r.tls==="plain"?"plain":"unknown",label=r.tls==="tls"?"TLS":r.tls==="plain"?"غیر TLS":"نامشخص";return'<article class="result"><div class="result-icon">'+esc(r.protocol.slice(0,3))+'</div><div><div class="result-title">مورد '+fa(i+1)+' · '+esc(r.protocol)+'</div><div class="result-meta"><span>ساختار: '+r.source+'</span><span>انتقال: '+esc(r.transport)+'</span><span>SNI: '+(r.sni?"وجود دارد":"یافت نشد")+'</span></div></div><span class="pill '+cls+'">'+label+'</span></article>'}).join("")}
+function render(){const c=counts();for(const [id,n]of [["totalCount",c.all],["tlsCount",c.tls],["plainCount",c.plain],["unknownCount",c.unknown],["allTab",c.all],["tlsTab",c.tls],["plainTab",c.plain],["unknownTab",c.unknown]])$(id).textContent=fa(n);$("downloadReport").disabled=!c.all;document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.filter===state.filter));const rows=state.rows.filter(x=>state.filter==="all"||x.tls===state.filter),host=$("resultsList");if(!rows.length){host.innerHTML='<div class="empty"><span>◎</span><strong>موردی در این بخش نیست</strong><p>یک فایل محلی وارد کن یا از دکمهٔ دریافت کنار یکی از منابع آنلاین استفاده کن.</p></div>';return}host.innerHTML=rows.map((r,i)=>{const cls=r.tls==="tls"?"tls":r.tls==="plain"?"plain":"unknown",label=r.tls==="tls"?"TLS":r.tls==="plain"?"غیر TLS":"نامشخص";return'<article class="result"><div class="result-icon">'+esc(r.protocol.slice(0,3))+'</div><div><div class="result-title">مورد '+fa(i+1)+' · '+esc(r.protocol)+'</div><div class="result-meta"><span>ساختار: '+esc(r.source)+'</span><span>منبع: '+esc(r.origin||"ورودی محلی")+'</span><span>انتقال: '+esc(r.transport)+'</span><span>SNI: '+(r.sni?"وجود دارد":"یافت نشد")+'</span></div></div><span class="pill '+cls+'">'+label+'</span></article>'}).join("")}
 function add(input){const rows=parse(input);if(!rows.length){alert("کانفیگ قابل‌شناسایی در ورودی پیدا نشد.");return}state.rows.push(...rows);render()}
 $("fileInput").addEventListener("change",async e=>{for(const f of Array.from(e.target.files||[])){try{add(await f.text())}catch{alert("خواندن فایل ناموفق بود.")}}e.target.value=""});
 $("pasteToggle").addEventListener("click",()=>$("pastePanel").classList.toggle("hidden"));$("parsePaste").addEventListener("click",()=>add($("pasteInput").value));
 $("clearButton").addEventListener("click",()=>{state.rows=[];state.filter="all";$("pasteInput").value="";render()});
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{state.filter=t.dataset.filter;render()}));
 const dz=$("dropzone");["dragenter","dragover"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.add("dragover")}));["dragleave","drop"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.remove("dragover")}));dz.addEventListener("drop",async e=>{for(const f of Array.from(e.dataTransfer.files||[])){try{add(await f.text())}catch{}}});
-$("downloadReport").addEventListener("click",()=>{const rows=[["item","protocol","classification","sni_present","transport","source"],...state.rows.map((r,i)=>[i+1,r.protocol,r.tls,r.sni,r.transport,r.source])],csv="\uFEFF"+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="hmarahhub-audit-report.csv";a.click();URL.revokeObjectURL(url)});
+$("downloadReport").addEventListener("click",()=>{const rows=[["item","protocol","classification","sni_present","transport","structure","origin"],...state.rows.map((r,i)=>[i+1,r.protocol,r.tls,r.sni,r.transport,r.source,r.origin||"local input"])],csv="\uFEFF"+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="hmarahhub-audit-report.csv";a.click();URL.revokeObjectURL(url)});
 
+async function importOnlineSource(source,button){
+  const files=(Array.isArray(source.outputs)?source.outputs:[]).filter(item=>/^https:\/\/raw\.githubusercontent\.com\//i.test(item.url)&&/\.txt(?:$|[?#])/i.test(item.url));
+  if(!files.length)return;
+  const status=$('[data-source-status="'+source.id+'"]');
+  const previous=button.textContent;
+  button.disabled=true;
+  let imported=[],failed=0,totalChars=0;
+  for(let i=0;i<files.length;i++){
+    if(status)status.textContent="در حال دریافت فایل "+fa(i+1)+" از "+fa(files.length)+"…";
+    button.textContent="در حال دریافت…";
+    try{
+      const response=await fetch(files[i].url,{cache:"no-store"});
+      if(!response.ok)throw new Error("HTTP "+response.status);
+      const body=await response.text();
+      totalChars+=body.length;
+      if(body.length>8000000||totalChars>25000000)throw new Error("size limit");
+      const parsed=parse(body);
+      for(const row of parsed){
+        row.id=state.rows.length+imported.length+1;
+        row.origin=source.name;
+        imported.push(row);
+      }
+    }catch(error){failed++}
+  }
+  if(imported.length){
+    state.rows.push(...imported);
+    state.filter="all";
+    render();
+  }
+  button.disabled=false;
+  button.textContent=previous;
+  const c={tls:imported.filter(x=>x.tls==="tls").length,plain:imported.filter(x=>x.tls==="plain").length,unknown:imported.filter(x=>x.tls==="unknown").length};
+  if(status){
+    status.textContent=imported.length
+      ? "افزوده شد: "+fa(imported.length)+" مورد · TLS: "+fa(c.tls)+" · غیر TLS: "+fa(c.plain)+" · نامشخص: "+fa(c.unknown)+(failed?" · فایل ناموفق: "+fa(failed):"")
+      : "کانفیگ قابل‌شناسایی دریافت نشد؛ ممکن است دسترسی یا CORS فایل‌ها محدود باشد.";
+  }
+}
 async function renderOnlineSources(){
   const host=$("onlineSources");
   if(!host)return;
@@ -36,8 +74,16 @@ async function renderOnlineSources(){
     host.innerHTML=sources.map(source=>{
       const outputs=Array.isArray(source.outputs)?source.outputs:[];
       const links=outputs.map(item=>'<a class="source-file" href="'+esc(item.url)+'" target="_blank" rel="noopener noreferrer">'+esc(item.label)+'</a>').join("");
-      return '<article class="source-card"><div class="source-card-head"><span class="source-kind">'+esc(source.kind)+'</span><span class="source-updated">آخرین فعالیت: '+esc(source.pushed_at||"نامشخص")+'</span></div><h3>'+esc(source.name)+'</h3><p class="source-description">'+esc(source.description)+'</p><div class="source-links">'+links+'</div><a class="source-repo" href="'+esc(source.repo)+'" target="_blank" rel="noopener noreferrer">مشاهدهٔ مخزن در GitHub ↗</a></article>';
+      const canImport=outputs.some(item=>/^https:\/\/raw\.githubusercontent\.com\//i.test(item.url)&&/\.txt(?:$|[?#])/i.test(item.url));
+      const importer=canImport?'<button class="source-import" type="button" data-import-source="'+esc(source.id)+'">دریافت و دسته‌بندی</button><p class="source-import-status" data-source-status="'+esc(source.id)+'" aria-live="polite">فایل‌های متنی این منبع با درخواست تو بررسی می‌شوند.</p>':"";
+      return '<article class="source-card"><div class="source-card-head"><span class="source-kind">'+esc(source.kind)+'</span><span class="source-updated">آخرین فعالیت: '+esc(source.pushed_at||"نامشخص")+'</span></div><h3>'+esc(source.name)+'</h3><p class="source-description">'+esc(source.description)+'</p><div class="source-links">'+links+'</div>'+importer+'<a class="source-repo" href="'+esc(source.repo)+'" target="_blank" rel="noopener noreferrer">مشاهدهٔ مخزن در GitHub ↗</a></article>';
     }).join("");
+    host.querySelectorAll("[data-import-source]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        const source=sources.find(item=>item.id===button.dataset.importSource);
+        if(source)importOnlineSource(source,button);
+      });
+    });
     if(!sources.length)host.innerHTML='<div class="source-loading">هنوز منبعی ثبت نشده است.</div>';
   }catch(error){
     host.innerHTML='<div class="source-loading">فهرست منابع بارگذاری نشد؛ فایل sources.json را بررسی کن.</div>';
