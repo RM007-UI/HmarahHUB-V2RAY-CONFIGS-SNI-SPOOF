@@ -24,5 +24,26 @@ $("clearButton").addEventListener("click",()=>{state.rows=[];state.filter="all";
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{state.filter=t.dataset.filter;render()}));
 const dz=$("dropzone");["dragenter","dragover"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.add("dragover")}));["dragleave","drop"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.remove("dragover")}));dz.addEventListener("drop",async e=>{for(const f of Array.from(e.dataTransfer.files||[])){try{add(await f.text())}catch{}}});
 $("downloadReport").addEventListener("click",()=>{const rows=[["item","protocol","classification","sni_present","transport","source"],...state.rows.map((r,i)=>[i+1,r.protocol,r.tls,r.sni,r.transport,r.source])],csv="\uFEFF"+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="hmarahhub-audit-report.csv";a.click();URL.revokeObjectURL(url)});
+
+async function renderOnlineSources(){
+  const host=$("onlineSources");
+  if(!host)return;
+  try{
+    const response=await fetch("./sources.json",{cache:"no-store"});
+    if(!response.ok)throw new Error("HTTP "+response.status);
+    const data=await response.json();
+    const sources=Array.isArray(data.sources)?data.sources:[];
+    host.innerHTML=sources.map(source=>{
+      const outputs=Array.isArray(source.outputs)?source.outputs:[];
+      const links=outputs.map(item=>'<a class="source-file" href="'+esc(item.url)+'" target="_blank" rel="noopener noreferrer">'+esc(item.label)+'</a>').join("");
+      return '<article class="source-card"><div class="source-card-head"><span class="source-kind">'+esc(source.kind)+'</span><span class="source-updated">آخرین فعالیت: '+esc(source.pushed_at||"نامشخص")+'</span></div><h3>'+esc(source.name)+'</h3><p class="source-description">'+esc(source.description)+'</p><div class="source-links">'+links+'</div><div class="source-license">'+esc(source.license)+'</div><a class="source-repo" href="'+esc(source.repo)+'" target="_blank" rel="noopener noreferrer">مشاهدهٔ مخزن در GitHub ↗</a></article>';
+    }).join("");
+    if(!sources.length)host.innerHTML='<div class="source-loading">هنوز منبعی ثبت نشده است.</div>';
+  }catch(error){
+    host.innerHTML='<div class="source-loading">فهرست منابع بارگذاری نشد؛ فایل sources.json را بررسی کن.</div>';
+  }
+}
+
 render();
+renderOnlineSources();
 })();
