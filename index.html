@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><meta name="description" content="ابزار محلی بررسی فایل‌های کانفیگ">
+<title>HmarahHUB · Config Inspector</title>
+<link rel="stylesheet" href="./assets/style.css"><script src="./assets/app.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="brand-mark">H</span><span>HmarahHUB<small>CONFIG INSPECTOR</small></span></a><span class="privacy"><i></i> پردازش داخل مرورگر</span></header>
+<main class="container">
+<section class="hero"><p class="eyebrow">LOCAL CONFIGURATION AUDIT</p><h1>کانفیگ‌ها را مرتب و بررسی کن.</h1>
+<p class="lead">فایل متنی یا JSON خودت را انتخاب کن تا پروتکل، وضعیت TLS و وجود SNI شناسایی شود. هیچ داده‌ای به سرور ارسال نمی‌شود.</p>
+<label class="dropzone" id="dropzone" for="fileInput"><span class="upload-icon">↑</span><strong>فایل کانفیگ را انتخاب کن یا اینجا رها کن</strong><span>TXT، CONF، JSON · فقط در همین مرورگر خوانده می‌شود</span><input id="fileInput" type="file" accept=".txt,.conf,.json,.yaml,.yml,.log,text/plain,application/json" multiple></label>
+<div class="toolbar"><button id="pasteToggle" class="button secondary" type="button">ورود متن</button><button id="clearButton" class="button ghost" type="button">پاک‌کردن نتایج</button></div>
+<div id="pastePanel" class="paste-panel hidden"><label for="pasteInput">کانفیگ‌ها را وارد کن (هر خط یک لینک، یا JSON):</label><textarea id="pasteInput" rows="5" spellcheck="false" placeholder="vless://…"></textarea><button id="parsePaste" class="button primary" type="button">بررسی متن</button></div>
+</section>
+<section class="stats" aria-live="polite"><article class="stat"><span>کل موارد</span><strong id="totalCount">۰</strong></article><article class="stat tls"><span>TLS شناسایی‌شده</span><strong id="tlsCount">۰</strong></article><article class="stat plain"><span>غیر TLS</span><strong id="plainCount">۰</strong></article><article class="stat unknown"><span>نامشخص</span><strong id="unknownCount">۰</strong></article></section>
+<section class="results"><div class="section-heading"><div><p class="eyebrow">INSPECTION RESULTS</p><h2>گزارش کانفیگ‌ها</h2></div><button id="downloadReport" class="button secondary" type="button" disabled>خروجی گزارش CSV ناشناس</button></div>
+<div class="tabs" role="tablist" aria-label="فیلتر نتایج"><button class="tab active" data-filter="all" type="button">همه <b id="allTab">۰</b></button><button class="tab" data-filter="tls" type="button">TLS <b id="tlsTab">۰</b></button><button class="tab" data-filter="plain" type="button">غیر TLS <b id="plainTab">۰</b></button><button class="tab" data-filter="unknown" type="button">نامشخص <b id="unknownTab">۰</b></button></div>
+<div id="resultsList" class="results-list"><div class="empty"><span>◎</span><strong>هنوز فایلی بررسی نشده</strong><p>یک فایل متنی یا JSON انتخاب کن تا گزارش اینجا نمایش داده شود.</p></div></div></section>
+<aside class="notice"><strong>دربارهٔ گزارش</strong><p>برای حفظ امنیت، آدرس سرور، پورت، UUID، رمز و متن کامل کانفیگ نمایش داده یا در CSV ذخیره نمی‌شوند. این ابزار فقط ساختار را بررسی می‌کند؛ وجود TLS یا SNI به معنی معتبر بودن گواهی یا برقرار بودن اتصال نیست.</p></aside>
+</main><footer>HmarahHUB · Local-only configuration inspection</footer>
+</body></html>
