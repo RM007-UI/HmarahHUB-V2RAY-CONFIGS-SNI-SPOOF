@@ -30,6 +30,5 @@ The homepage lists four externally maintained GitHub projects:
 - Delta-Kronecker/V2ray-Config — upstream collector and published config batches.
 - MohammadBahemmat/V2ray-Collector — upstream collector with per-protocol files; README states MIT.
 - alireza786786/Free-V2ray-Configs — upstream collector with combined, protocol, and country outputs; README states MIT.
-- aishervin/Xrayng — Android client/reference project, not a configuration source; GPL-3.0.
 
 The links point to upstream repositories and files. HmarahHUB does not mirror third-party endpoint lists. Check each upstream project's terms before copying or republishing its data. Some source repositories do not have a standalone LICENSE file in their root.
