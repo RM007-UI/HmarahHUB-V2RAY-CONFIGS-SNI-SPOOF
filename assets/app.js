@@ -36,7 +36,7 @@ async function renderOnlineSources(){
     host.innerHTML=sources.map(source=>{
       const outputs=Array.isArray(source.outputs)?source.outputs:[];
       const links=outputs.map(item=>'<a class="source-file" href="'+esc(item.url)+'" target="_blank" rel="noopener noreferrer">'+esc(item.label)+'</a>').join("");
-      return '<article class="source-card"><div class="source-card-head"><span class="source-kind">'+esc(source.kind)+'</span><span class="source-updated">آخرین فعالیت: '+esc(source.pushed_at||"نامشخص")+'</span></div><h3>'+esc(source.name)+'</h3><p class="source-description">'+esc(source.description)+'</p><div class="source-links">'+links+'</div><div class="source-license">'+esc(source.license)+'</div><a class="source-repo" href="'+esc(source.repo)+'" target="_blank" rel="noopener noreferrer">مشاهدهٔ مخزن در GitHub ↗</a></article>';
+      return '<article class="source-card"><div class="source-card-head"><span class="source-kind">'+esc(source.kind)+'</span><span class="source-updated">آخرین فعالیت: '+esc(source.pushed_at||"نامشخص")+'</span></div><h3>'+esc(source.name)+'</h3><p class="source-description">'+esc(source.description)+'</p><div class="source-links">'+links+'</div><a class="source-repo" href="'+esc(source.repo)+'" target="_blank" rel="noopener noreferrer">مشاهدهٔ مخزن در GitHub ↗</a></article>';
     }).join("");
     if(!sources.length)host.innerHTML='<div class="source-loading">هنوز منبعی ثبت نشده است.</div>';
   }catch(error){
