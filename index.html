@@ -15,6 +15,18 @@
 <div class="toolbar"><button id="pasteToggle" class="button secondary" type="button">ورود متن</button><button id="clearButton" class="button ghost" type="button">پاک‌کردن نتایج</button></div>
 <div id="pastePanel" class="paste-panel hidden"><label for="pasteInput">کانفیگ‌ها را وارد کن (هر خط یک لینک، یا JSON):</label><textarea id="pasteInput" rows="5" spellcheck="false" placeholder="vless://…"></textarea><button id="parsePaste" class="button primary" type="button">بررسی متن</button></div>
 </section>
+
+<section class="source-section">
+  <div class="section-heading">
+    <div><p class="eyebrow">ONLINE SOURCE DIRECTORY</p><h2>منابع آنلاین</h2></div>
+    <span class="source-count">۳ جمع‌آوری‌کننده · ۱ کلاینت مرجع</span>
+  </div>
+  <p class="source-intro">این بخش فهرست مخازن و فایل‌هایی را نشان می‌دهد که خودِ ناشر در GitHub منتشر کرده است. برای دریافت آخرین نسخه، لینک هر فایل را باز کن؛ HmarahHUB فایل‌های دیگران را در این مخزن کپی نمی‌کند.</p>
+  <div id="onlineSources" class="source-grid" aria-live="polite">
+    <div class="source-loading">در حال خواندن فهرست منابع…</div>
+  </div>
+</section>
+
 <section class="stats" aria-live="polite"><article class="stat"><span>کل موارد</span><strong id="totalCount">۰</strong></article><article class="stat tls"><span>TLS شناسایی‌شده</span><strong id="tlsCount">۰</strong></article><article class="stat plain"><span>غیر TLS</span><strong id="plainCount">۰</strong></article><article class="stat unknown"><span>نامشخص</span><strong id="unknownCount">۰</strong></article></section>
 <section class="results"><div class="section-heading"><div><p class="eyebrow">INSPECTION RESULTS</p><h2>گزارش کانفیگ‌ها</h2></div><button id="downloadReport" class="button secondary" type="button" disabled>خروجی گزارش CSV ناشناس</button></div>
 <div class="tabs" role="tablist" aria-label="فیلتر نتایج"><button class="tab active" data-filter="all" type="button">همه <b id="allTab">۰</b></button><button class="tab" data-filter="tls" type="button">TLS <b id="tlsTab">۰</b></button><button class="tab" data-filter="plain" type="button">غیر TLS <b id="plainTab">۰</b></button><button class="tab" data-filter="unknown" type="button">نامشخص <b id="unknownTab">۰</b></button></div>
