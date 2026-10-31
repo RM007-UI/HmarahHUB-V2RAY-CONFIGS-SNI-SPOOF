@@ -1,0 +1,130 @@
+{
+  "updated_at": "2026-10-31",
+  "note": "این‌ها پیوند به مخازن و فایل‌های منتشرشده در همان مخازن هستند؛ HmarahHUB آن‌ها را کپی یا mirror نمی‌کند.",
+  "sources": [
+    {
+      "id": "delta-kronecker",
+      "name": "Delta-Kronecker · V2ray-Config",
+      "kind": "جمع‌آوری‌کننده خودکار",
+      "description": "مخزن، جمع‌آوری کانفیگ از مخازن متعدد و اعتبارسنجی با Xray core را معرفی می‌کند. خروجی‌های عمومی TXT و فایل‌های دسته‌بندی‌شده دارد.",
+      "repo": "https://github.com/Delta-Kronecker/V2ray-Config",
+      "pushed_at": "2026-10-31",
+      "license": "مجوز بازنشر مشخصی در مخزن پیدا نشد؛ فقط پیوند به خروجی بالادستی درج شده است.",
+      "outputs": [
+        {
+          "label": "خروجی ترکیبی",
+          "url": "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/main/config/all_configs.txt"
+        },
+        {
+          "label": "فایل SNI · بخش ۱",
+          "url": "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/main/config/batches/sni_v2ray/batch_001.txt"
+        },
+        {
+          "label": "فایل SNI · بخش ۲",
+          "url": "https://raw.githubusercontent.com/Delta-Kronecker/V2ray-Config/main/config/batches/sni_v2ray/batch_002.txt"
+        },
+        {
+          "label": "فایل‌های V2Ray",
+          "url": "https://github.com/Delta-Kronecker/V2ray-Config/tree/main/config/batches/v2ray"
+        }
+      ]
+    },
+    {
+      "id": "mohammad-bahemmat",
+      "name": "MohammadBahemmat · V2ray-Collector",
+      "kind": "جمع‌آوری‌کننده خودکار",
+      "description": "جمع‌آوری از مخازن GitHub و کانال‌های عمومی تلگرام؛ خروجی کلی و فایل‌های جداشده بر اساس پروتکل دارد.",
+      "repo": "https://github.com/MohammadBahemmat/V2ray-Collector",
+      "pushed_at": "2026-10-31",
+      "license": "MIT طبق توضیح README؛ فایل مستقل LICENSE در ریشهٔ مخزن پیدا نشد.",
+      "outputs": [
+        {
+          "label": "همهٔ سرورها",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/all_servers.txt"
+        },
+        {
+          "label": "VLESS",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/vless_servers.txt"
+        },
+        {
+          "label": "VMess",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/vmess_servers.txt"
+        },
+        {
+          "label": "Trojan",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/trojan_servers.txt"
+        },
+        {
+          "label": "Shadowsocks",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/ss_servers.txt"
+        },
+        {
+          "label": "Hysteria2",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/hysteria2_servers.txt"
+        },
+        {
+          "label": "TUIC",
+          "url": "https://raw.githubusercontent.com/MohammadBahemmat/V2ray-Collector/main/servers/tuic_servers.txt"
+        }
+      ]
+    },
+    {
+      "id": "alireza-free-configs",
+      "name": "alireza786786 · Free-V2ray-Configs",
+      "kind": "جمع‌آوری‌کننده خودکار",
+      "description": "مخزن دارای به‌روزرسانی خودکار و خروجی‌های ترکیبی، تفکیک‌شده بر اساس پروتکل و دسته‌بندی کشوری است.",
+      "repo": "https://github.com/alireza786786/Free-V2ray-Configs",
+      "pushed_at": "2026-10-31",
+      "license": "MIT طبق توضیح README؛ فایل مستقل LICENSE در ریشهٔ مخزن پیدا نشد.",
+      "outputs": [
+        {
+          "label": "همهٔ سرورها",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/all_servers.txt"
+        },
+        {
+          "label": "VLESS",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/servers/vless_servers.txt"
+        },
+        {
+          "label": "VMess",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/servers/vmess_servers.txt"
+        },
+        {
+          "label": "Trojan",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/servers/trojan_servers.txt"
+        },
+        {
+          "label": "Shadowsocks",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/servers/ss_servers.txt"
+        },
+        {
+          "label": "Hysteria2",
+          "url": "https://raw.githubusercontent.com/alireza786786/Free-V2ray-Configs/main/servers/hysteria2_servers.txt"
+        },
+        {
+          "label": "دسته‌بندی کشورها",
+          "url": "https://github.com/alireza786786/Free-V2ray-Configs/tree/main/servers/countries"
+        }
+      ]
+    },
+    {
+      "id": "xrayng-client",
+      "name": "aishervin · Xrayng",
+      "kind": "کلاینت اندروید · مرجع نرم‌افزاری",
+      "description": "نسخهٔ تغییریافتهٔ کلاینت V2RayNG/Xray برای اندروید است؛ منبع جمع‌آوری یا اشتراک کانفیگ نیست.",
+      "repo": "https://github.com/aishervin/Xrayng",
+      "pushed_at": "2026-10-15",
+      "license": "GPL-3.0",
+      "outputs": [
+        {
+          "label": "کد و فایل‌های پروژه",
+          "url": "https://github.com/aishervin/Xrayng"
+        },
+        {
+          "label": "مجوز GPL-3.0",
+          "url": "https://github.com/aishervin/Xrayng/blob/main/LICENSE"
+        }
+      ]
+    }
+  ]
+}
