@@ -106,25 +106,6 @@
           "url": "https://github.com/alireza786786/Free-V2ray-Configs/tree/main/servers/countries"
         }
       ]
-    },
-    {
-      "id": "xrayng-client",
-      "name": "aishervin · Xrayng",
-      "kind": "کلاینت اندروید · مرجع نرم‌افزاری",
-      "description": "نسخهٔ تغییریافتهٔ کلاینت V2RayNG/Xray برای اندروید است؛ منبع جمع‌آوری یا اشتراک کانفیگ نیست.",
-      "repo": "https://github.com/aishervin/Xrayng",
-      "pushed_at": "2026-10-15",
-      "license": "GPL-3.0",
-      "outputs": [
-        {
-          "label": "کد و فایل‌های پروژه",
-          "url": "https://github.com/aishervin/Xrayng"
-        },
-        {
-          "label": "مجوز GPL-3.0",
-          "url": "https://github.com/aishervin/Xrayng/blob/main/LICENSE"
-        }
-      ]
     }
   ]
 }
