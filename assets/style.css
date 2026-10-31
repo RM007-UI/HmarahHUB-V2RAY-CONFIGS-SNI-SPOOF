@@ -31,3 +31,8 @@
 .source-repo{display:inline-block;color:var(--blue);font-size:11px;text-decoration:none;margin-top:5px}
 .source-loading{grid-column:1/-1;padding:20px;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted);font-size:12px}
 @media(max-width:700px){.source-grid{grid-template-columns:1fr}.source-description{min-height:0}}
+
+.source-import{display:inline-flex;align-items:center;justify-content:center;border:1px solid #315d8e;background:#1b3b5d;color:#d9ebff;border-radius:9px;padding:9px 12px;font:inherit;font-size:11px;cursor:pointer;margin:4px 0 0}
+.source-import:hover{background:#244c73}
+.source-import:disabled{opacity:.55;cursor:wait}
+.source-import-status{font-size:10px;line-height:1.8;color:var(--muted);margin:7px 0 2px;min-height:18px}
